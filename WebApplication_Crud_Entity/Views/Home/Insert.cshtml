@@ -1,0 +1,36 @@
+﻿@model WebApplication_Crud_Entity.Models.EMp
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@*<form action="@Url.Action("Insert", "Home")" method="post">*@
+
+<form action="Insert" method="post" enctype="multipart/form-data">
+    <div class="">
+        <label class=""> Emp Id</label>
+        <input type="text" name="Id" />
+    </div>
+    <div class="">
+        <label class=""> Emp Name</label>
+        <input type="text" name="Name" />
+    </div>
+    <div class="">
+        <label class=""> Emp Salary</label>
+        <input type="text" name="sal" />
+    </div>
+
+    <div class="">
+        <label class=""> Photo</label>
+        <input type="file" name="photo" />
+        
+    </div>
+    <div>
+        <input type="submit" value="submit" />
+    </div>
+
+
+
+</form>

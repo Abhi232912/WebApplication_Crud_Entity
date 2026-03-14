@@ -1,0 +1,48 @@
+﻿@model WebApplication_Crud_Entity.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        <h1>Login Form</h1>
+        <form method="post" action="Login">
+
+            <div>
+                <label>User Nmae</label>
+                <input type="text" name="User1" />
+            </div>
+
+            <div>
+                <label>Password</label>
+                <input type="text" name="password" />
+            </div>
+
+            <div>
+
+                <input type="submit" value="Login" onclick="login()" />
+            </div>
+
+
+
+        </form>
+    </div>
+    
+   @if (ViewBag.loginerror != null)
+{
+    <script>
+        alert('@ViewBag.loginerror');
+    </script>
+}
+
+   
+</body>
+</html>

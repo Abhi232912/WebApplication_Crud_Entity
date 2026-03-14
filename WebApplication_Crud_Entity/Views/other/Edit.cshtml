@@ -1,0 +1,27 @@
+﻿@model WebApplication_Crud_Entity.Models.EMp 
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div>
+       
+        <form action="Edit" method="post">
+            Emp id:  <input type="text" name="id" value="@Model.Id" />
+            Emp name <input type="text" name="name" value="@Model.Name" />
+            Emp salary <input type="text" name="sal" value="@Model.sal" />
+            <input type="submit" name="name" value="submit" />
+
+        </form>
+
+    </div>
+</body>
+</html>

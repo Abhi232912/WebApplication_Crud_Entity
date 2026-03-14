@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PractiseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EMp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="sal" Type="int" />
+          <Property Name="photo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="bigint" />
+          <Property Name="Gmail" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles_Table">
+          <Key>
+            <PropertyRef Name="Role_id" />
+          </Key>
+          <Property Name="Role_id" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User" Type="nvarchar(max)" />
+          <Property Name="Role_id" Type="int" />
+          <Property Name="password" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_Register_Roles_Table">
+          <End Role="Roles_Table" Type="Self.Roles_Table" Multiplicity="0..1" />
+          <End Role="Register" Type="Self.Register" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles_Table">
+              <PropertyRef Name="Role_id" />
+            </Principal>
+            <Dependent Role="Register">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles_Table">
+          <End Role="Roles_Table" Type="Self.Roles_Table" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles_Table">
+              <PropertyRef Name="Role_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PractiseModelStoreContainer">
+          <EntitySet Name="EMp" EntityType="Self.EMp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles_Table" EntityType="Self.Roles_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Register_Roles_Table" Association="Self.FK_Register_Roles_Table">
+            <End Role="Roles_Table" EntitySet="Roles_Table" />
+            <End Role="Register" EntitySet="Register" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles_Table" Association="Self.FK_Users_Roles_Table">
+            <End Role="Roles_Table" EntitySet="Roles_Table" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PractiseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EMp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sal" Type="Int32" />
+          <Property Name="photo" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityContainer Name="PractiseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EMps" EntityType="Self.EMp" />
+          <EntitySet Name="Roles_Table" EntityType="PractiseModel.Roles_Table" />
+          <EntitySet Name="Users" EntityType="PractiseModel.User" />
+          <AssociationSet Name="FK_Users_Roles_Table" Association="PractiseModel.FK_Users_Roles_Table">
+            <End Role="Roles_Table" EntitySet="Roles_Table" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Registers" EntityType="PractiseModel.Register" />
+          <AssociationSet Name="FK_Register_Roles_Table" Association="PractiseModel.FK_Register_Roles_Table">
+            <End Role="Roles_Table" EntitySet="Roles_Table" />
+            <End Role="Register" EntitySet="Registers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Roles_Table">
+          <Key>
+            <PropertyRef Name="Role_id" />
+          </Key>
+          <Property Name="Role_id" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="PractiseModel.FK_Users_Roles_Table" FromRole="Roles_Table" ToRole="User" />
+          <NavigationProperty Name="Registers" Relationship="PractiseModel.FK_Register_Roles_Table" FromRole="Roles_Table" ToRole="Register" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Role_id" Type="Int32" />
+          <NavigationProperty Name="Roles_Table" Relationship="PractiseModel.FK_Users_Roles_Table" FromRole="User" ToRole="Roles_Table" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Users_Roles_Table">
+          <End Type="PractiseModel.Roles_Table" Role="Roles_Table" Multiplicity="0..1" />
+          <End Type="PractiseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles_Table">
+              <PropertyRef Name="Role_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="Int64" />
+          <Property Name="Gmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="Roles_Table" Relationship="PractiseModel.FK_Register_Roles_Table" FromRole="Register" ToRole="Roles_Table" />
+        </EntityType>
+        <Association Name="FK_Register_Roles_Table">
+          <End Type="PractiseModel.Roles_Table" Role="Roles_Table" Multiplicity="0..1" />
+          <End Type="PractiseModel.Register" Role="Register" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles_Table">
+              <PropertyRef Name="Role_id" />
+            </Principal>
+            <Dependent Role="Register">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PractiseModelStoreContainer" CdmEntityContainer="PractiseEntities">
+          <EntitySetMapping Name="EMps">
+            <EntityTypeMapping TypeName="PractiseModel.EMp">
+              <MappingFragment StoreEntitySet="EMp">
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="sal" ColumnName="sal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles_Table">
+            <EntityTypeMapping TypeName="PractiseModel.Roles_Table">
+              <MappingFragment StoreEntitySet="Roles_Table">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Role_id" ColumnName="Role_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PractiseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Role_id" ColumnName="Role_id" />
+                <ScalarProperty Name="User1" ColumnName="User" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registers">
+            <EntityTypeMapping TypeName="PractiseModel.Register">
+              <MappingFragment StoreEntitySet="Register">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,84 @@
+﻿@{
+    @model List<WebApplication_Crud_Entity.Models.EMp>
+}
+
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div>
+
+
+        <h1 class="text-danger">@ViewBag.msg</h1>
+        @if (Session["Role"].ToString().ToUpper() != "ADMIN")
+        {
+            <h1><a href="Insert">Insert</a></h1>
+        }
+
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Emp Id</th>
+                    <th>EMp name</th>
+                    <th>Emp salary</th>
+                    <th>Photo</th>
+
+                    @*@if (i.photo != "")
+                        {@i.photo }
+                    else
+                    { @i.photo= "NO-Photo.jpg"}*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model)
+                {
+                    <tr>
+                        <td>@i.Id</td>
+                        <td>@i.Name</td>
+
+                        <td>@i.sal</td>
+                        <td><img src="~/Uploads/Photo/@i.photo" width="100px" height="100px" /></td>
+                        <td>
+
+
+                            <a href=" @Url.Action("other", "Edit", new { id = i.Id })">Edit</a>
+
+
+                        </td>
+
+
+                        <td>
+
+
+                            <a href="@Url.Action("Delete", "other", new { i.Id })">Delete</a>
+
+
+                        </td>
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+</body>
+</html>

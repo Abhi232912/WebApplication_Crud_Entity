@@ -1,0 +1,45 @@
+﻿@model WebApplication_Crud_Entity.Models.Register
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+</head>
+<body>
+    <section>
+        <form method="post" action="Register">
+            <div>
+                <label>Name</label>
+                <input type="text" name="Name" />
+                <span @Html.ValidationMessageFor(Model =>Model.Name) ></span>
+            </div>
+
+            <div>
+                <label>Phone Number</label>
+                <input type="text" name="PhoneNumber" />
+                <span @Html.ValidationMessageFor(Model => Model.PhoneNumber) ></span>
+            </div>
+            <div>
+                <label>Gmail</label>
+                <input type="text" name="Gmail" />
+         <span @Html.ValidationMessageFor(Model=>Model.Gmail)></span>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="text" name="Password" />
+                <span @Html.ValidationMessageFor(Model => Model.Password) ></span>
+            </div>
+            <div>
+
+                <input type="submit" value="submit" />
+            </div>
+        </form>
+    </section>
+</body>
+</html>

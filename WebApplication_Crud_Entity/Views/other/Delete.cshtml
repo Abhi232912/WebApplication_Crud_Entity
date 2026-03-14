@@ -1,0 +1,24 @@
+﻿@model WebApplication_Crud_Entity.Models.EMp
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <div>
+        <form action="Delete" method="post">
+            Emp id:  <input type="text" name="id" value="@Model.Id" readonly />
+            Emp name <input type="text" name="name" value="@Model.Name" readonly/>
+            Emp salary <input type="text" name="sal" value="@Model.sal" readonlys/>
+            <input type="submit" name="name" value="Delete" />
+
+        </form>
+    </div>
+</body>
+</html>
