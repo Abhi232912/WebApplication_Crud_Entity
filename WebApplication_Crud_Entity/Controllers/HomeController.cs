@@ -149,5 +149,9 @@ namespace WebApplication_Crud_Entity.Controllers
             }
            
         }
+
+        public ActionResult demo() { 
+        return View();  
+        }
     }
 }
